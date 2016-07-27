@@ -1,7 +1,9 @@
 ''' Importing regular expressions package re to use re.sub() 
     https://docs.python.org/2/library/re.html'''
 import re
-'''Importing Queue.Queue() from package Queue'''
+'''Importing Queue.Queue() from package Queue
+            https://docs.python.org/3/library/asyncio-queue.html
+'''
 from Queue import Queue
 from string_tools import StringCleaner
 
