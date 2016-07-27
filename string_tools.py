@@ -2,30 +2,30 @@
    (either a **space** separated string or a list of strings) 
    in order to produce substrings with certain characters removed.'''
 class StringCleaner(object):
-  ''' Currently only allow the possibility of one string
-    but use kwargs so in the future the functionality to
-    operate on multiple different strings or lists can be added.
-    For now throw an error if multiple strings or lists or both
-    are supplied.
-
-
-    Attributes
-    -----------
-    cur_string - Space separated string
-    string_list = List of strings if user supplies it
-
-    Functions
+  '''  Functions
     ---------
-    clean(c_func=re.sub,str_pos=-1,*args) - Take a method
-    (ex. re.sub() for regular expressions), position of the argument
-    that will take self.string_list, and then a list of arguments
-    (*args) for that method. then modify self.string_list with c_func 
+     __init__() - Currently only allow the possibility of one string
+      but use kwargs so in the future the functionality to
+      operate on multiple different strings or lists can be added.
+      For now throw an error if multiple strings or lists or both
+      are supplied.
 
-      Arguments
-      ---------
-      c_func - the function being used to clean the string
-      str_pos - the argument position in the function of the string  
-      *args - Other non-string arguments of c_func
+
+        Attributes
+        -----------
+        cur_string - Space separated string
+        string_list = List of strings if user supplies it
+
+      clean(c_func=re.sub,str_pos=-1,*args) - Take a method
+      (ex. re.sub() for regular expressions), position of the argument
+       that will take self.string_list, and then a list of arguments
+      (*args) for that method. then modify self.string_list with c_func 
+
+        Arguments
+        ---------
+        c_func - the function being used to clean the string
+        str_pos - the argument position in the function of the string  
+        *args - Other non-string arguments of c_func
   '''
 
   def __init__(self,**kwargs):
