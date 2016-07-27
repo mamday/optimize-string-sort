@@ -16,7 +16,7 @@ class StringCleaner(object):
 
     Functions
     ---------
-    clean(c_func=re.sub,str_pos=-1,*args) - Take a method (ex. re.sub() for regular expressions), position of the argument that will take self.string_list, and then a list of arguments (*args) for that method, then output the string modified by the method.
+    clean(c_func=re.sub,str_pos=-1,*args) - Take a method (ex. re.sub() for regular expressions), position of the argument that will take self.string_list, and then a list of arguments (*args) for that method. then modify self.string_list with c_func 
 
       Arguments
       ---------
@@ -46,6 +46,8 @@ class StringCleaner(object):
 
   '''Use function c_func to clean self.cur_string at str_pos within
       list of arguments args'''
+  def __str__(self):
+    return self.cur_string
   def clean(self,c_func,str_pos,*args):
     '''Check that input str_pos can be inserted into args'''
     if(str_pos>len(args)):
@@ -53,9 +55,7 @@ class StringCleaner(object):
     '''Insert self.cur_string into *args at position str_pos'''
     if(len(args)==0):
       try:
-        out_str = c_func(self.cur_string)
-        '''Return formatted string'''
-        return out_str
+        self.cur_string = c_func(self.cur_string)
       except:
         raise Exception('Function failed with current arguments `%s` with given function' % (args,))
     else:
@@ -65,10 +65,7 @@ class StringCleaner(object):
 
       try:
         '''Format string'''
-        out_str = c_func(*args)    
-
-        '''Return formatted string'''
-        return out_str
+        self.cur_string = c_func(*args)    
       except:
         raise Exception('Function failed with current arguments `%s` with given function' % (args,)) 
 
