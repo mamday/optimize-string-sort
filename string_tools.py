@@ -33,16 +33,16 @@ class StringCleaner(object):
     self.string_list = []
 
     ''' Initialize string depending on kwargs key (`ss` for space
-      delimited string, `list` for list of strings). '''
+      delimited string, `lis` for list of strings). '''
     if(len(kwargs)==0):
       raise Exception('No input string information')
     elif(len(kwargs)==1 and 'ss' in kwargs.keys()):
       if(not(isinstance(kwargs['ss'],str))):
         raise Exception('String type `ss` must be string')
       self.cur_string = kwargs['ss'] 
-    elif(len(kwargs)==1 and 'list' in kwargs.keys()):
-      if(not(isinstance(kwargs['list'],list))):
-        self.string_list = kwargs['list'] 
+    elif(len(kwargs)==1 and 'lis' in kwargs.keys()):
+      if(not(isinstance(kwargs['lis'],list))):
+        self.string_list = kwargs['lis'] 
         self.cur_string = ' '.join(self.string_list)
     else:
       raise Exception('Cannot clean multiple strings')
@@ -73,3 +73,14 @@ class StringCleaner(object):
       except:
         raise Exception('Function failed with current arguments `%s` with given function' % (args,)) 
 
+def test_string_cleaner_string_instantiation():
+  assert StringCleaner(ss='string')
+
+def test_string_cleaner_list_instantiation():
+  assert StringCleaner(lis=['string1','string2'])
+
+def test_string_cleaning():
+  import re
+  cur_string = StringCleaner(ss='string')
+  cur_string.clean(re.sub,2,'[^a-zA-Z ]','')
+  
