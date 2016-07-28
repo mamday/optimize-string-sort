@@ -140,11 +140,13 @@ class AlphanumericSortableString(object):
         self.type_heap.put('number')
 
   def sort(self):
-    '''Use regular expressions package re to remove everything
+    '''Check that the input string is valid using the StringCleaner class.
+       Then use regular expressions package re to remove everything
        but numbers 0-9 and lower case and capital letters a-z,
        keeping spaces and dashes (in case of negative numbers)
         which will be cleaned in a later step''' 
     out_string = ''
+    out_list = []
     self.cur_string.clean(re.sub,2,'[^a-zA-Z0-9- ]','') 
 
     '''Create the type,word and integer heaps'''
@@ -153,17 +155,16 @@ class AlphanumericSortableString(object):
     '''Pop off all types, then add either a word or integer to the output
        string based on the type'''
     while(not self.type_heap.empty()):
-      '''Separate words and integers by a space'''
-      if(len(out_string)>0):
-        out_string=out_string+' '
-
       cur_type = self.type_heap.get()
 
       if(cur_type=='word'):
-        out_string=out_string+self.str_heap.get()
+        out_list.append(self.str_heap.get())
       elif(cur_type=='number'):
-        out_string=out_string+str(self.num_heap.get())
+        out_list.append(str(self.num_heap.get()))
 
+    '''Make list into space separated string'''
+    out_string = ' '.join(out_list)
+    
     self.cur_string = out_string
 
 def main():
