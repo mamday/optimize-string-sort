@@ -186,6 +186,8 @@ def main():
 if __name__=="__main__":
   main()
 
+'''Tests using the pytest package that will be automatically run by running:
+   py.test string_sort.py'''
 def test_num_nonalphanumeric():
   out_str = AlphanumericSortableString('89%7##4')
   out_str.sort()
