@@ -37,12 +37,11 @@ class AlphanumericSortableString(object):
   def dash_case(self,it_string):
     new_it=''
     it_alpha,n_pos = self.is_alpha(it_string)
-
     if(it_alpha!=None and not(it_alpha)):
-      new_it = StringCleaner(ss=it_string[n_pos:]) 
+      new_it = StringCleaner(ss=it_string[n_pos-1:]) 
       m_string=''
 
-      if(it_string[n_pos-1]=='-'):
+      if(it_string[n_pos-2]=='-'):
         m_string='-'
       new_it.clean(re.sub,2,'[^0-9]','') 
       new_it = m_string+str(new_it)
