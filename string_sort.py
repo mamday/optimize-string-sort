@@ -186,9 +186,35 @@ def main():
 if __name__=="__main__":
   main()
 
+def test_num_nonalphanumeric():
+  out_str = AlphanumericSortableString('89%7##4')
+  out_str.sort()
+  out_str=str(out_str)
+  assert out_str=='8974'
+
+def test_word_nonalphanumeric():
+  out_str = AlphanumericSortableString('unl&''""imited')
+  out_str.sort()
+  out_str=str(out_str)
+  assert out_str=='unlimited'
+
+def test_word_dashes():
+  out_str = AlphanumericSortableString('am*---erica')
+  out_str.sort()
+  out_str=str(out_str)
+  assert out_str=='america'
+
+def test_num_dashes():
+  out_str = AlphanumericSortableString('-95-9!$')
+  out_str.sort()
+  out_str=str(out_str)
+  assert out_str=='-959'
+
 def test_basic_function():
-  out_str = AlphanumericSortableString('-95-9!$ am*---erica 45 -9 unl&''""imited free 89%7--4 bread sticks -95-9!$')
+  out_str = AlphanumericSortableString('-95-9!$ am*---erica 45 -9 unl&''""imited free 89%7##4 bread sticks -95-9!$')
   out_str.sort()
   out_str=str(out_str)
   assert out_str=='-959 america -959 -9 bread free 45 sticks unlimited 8974'
+
+ 
  
