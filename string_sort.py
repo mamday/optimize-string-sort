@@ -71,10 +71,15 @@ class AlphanumericSortableString(object):
     return self.cur_string
 
   def is_alpha(self,it_string):
-    '''Determine if there are any numbers in it_string'''
+    '''Determine if there are any numbers in it_string, then find the first
+       occurence of a number.'''
+    min_pos = 9999 
     for num in self.n_chars:
       if(str(num) in it_string):
-        return False,it_string.find(str(num))
+        if(it_string.find(str(num))<min_pos):        
+          min_pos=it_string.find(str(num))
+    if(min_pos<9999):
+      return False,min_pos
 
     '''Determine if there are any letters in it_string'''
     for let in self.a_chars:
@@ -95,10 +100,10 @@ class AlphanumericSortableString(object):
     character, and filter out all non-numeric characters, then add a '-'
     character if it comes right before the first numeric character'''
     if(it_alpha!=None and not(it_alpha)):
-      new_it = StringCleaner(ss=it_string[n_pos-1:]) 
+      new_it = StringCleaner(ss=it_string[n_pos:]) 
       m_string=''
 
-      if(it_string[n_pos-2]=='-'):
+      if(it_string[n_pos-1]=='-'):
         m_string='-'
       new_it.clean(re.sub,2,'[^0-9]','') 
       new_it = m_string+str(new_it)
@@ -131,7 +136,7 @@ class AlphanumericSortableString(object):
       '''If it is an integer, put it on the integer heap and add 'word to the
          type heap''' 
       if(it_alpha!=None and not(it_alpha)):
-        self.num_heap.put(it)
+        self.num_heap.put(int(it))
         self.type_heap.put('number')
 
   def sort(self):
@@ -157,7 +162,7 @@ class AlphanumericSortableString(object):
       if(cur_type=='word'):
         out_string=out_string+self.str_heap.get()
       elif(cur_type=='number'):
-        out_string=out_string+self.num_heap.get()
+        out_string=out_string+str(self.num_heap.get())
 
     return out_string
 
@@ -171,11 +176,16 @@ def main():
   '''Get the string from the file as in_str. Then sort it with 
    AlphanumericSortableString().sort(), setting out_str equal to the result'''
   in_str = open(in_name).readlines()[0]
-  out_str = AlphanumericSortableString(in_str).sort() 
+  out_str = AlphanumericSortableString(in_str.strip()).sort() 
 
   '''Write the sorted string to the output file'''
   out_file = open(out_name,'w')
   out_file.write(out_str)
 
 if __name__=="__main__":
-  main() 
+  main()
+
+def test_basic_function():
+  out_str = AlphanumericSortableString('-95-9!$ am*---erica 45 -9 unl&''""imited free 89%7--4 bread sticks -95-9!$').sort()
+  assert out_str=='-959 america -959 -9 bread free 45 sticks unlimited 8974'
+ 
