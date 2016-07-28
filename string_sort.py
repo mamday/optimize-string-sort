@@ -164,7 +164,7 @@ class AlphanumericSortableString(object):
       elif(cur_type=='number'):
         out_string=out_string+str(self.num_heap.get())
 
-    return out_string
+    self.cur_string = out_string
 
 def main():
   '''Get name of input and output files from command line input. 
@@ -176,16 +176,19 @@ def main():
   '''Get the string from the file as in_str. Then sort it with 
    AlphanumericSortableString().sort(), setting out_str equal to the result'''
   in_str = open(in_name).readlines()[0]
-  out_str = AlphanumericSortableString(in_str.strip()).sort() 
+  out_str = AlphanumericSortableString(in_str.strip())
+  out_str.sort() 
 
   '''Write the sorted string to the output file'''
   out_file = open(out_name,'w')
-  out_file.write(out_str)
+  out_file.write(str(out_str))
 
 if __name__=="__main__":
   main()
 
 def test_basic_function():
-  out_str = AlphanumericSortableString('-95-9!$ am*---erica 45 -9 unl&''""imited free 89%7--4 bread sticks -95-9!$').sort()
+  out_str = AlphanumericSortableString('-95-9!$ am*---erica 45 -9 unl&''""imited free 89%7--4 bread sticks -95-9!$')
+  out_str.sort()
+  out_str=str(out_str)
   assert out_str=='-959 america -959 -9 bread free 45 sticks unlimited 8974'
  
