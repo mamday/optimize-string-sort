@@ -65,29 +65,29 @@ class AlphanumericSortableString(object):
     self.type_heap = Queue()
     self.cur_string = StringCleaner(ss=in_string) 
     self.a_chars = set(string.lowercase+string.uppercase) 
-    self.n_chars = set([0,1,2,3,4,5,6,7,8,9])
+    self.n_chars = set(map(str,[0,1,2,3,4,5,6,7,8,9]))
 
   def __str__(self):
     return self.cur_string
 
   def is_alpha(self,it_string):
-    '''Determine if there are any numbers in it_string, then find the first
-       occurence of a number.'''
     min_pos = 9999 
-    for num in self.n_chars:
-      if(str(num) in it_string):
-        if(it_string.find(str(num))<min_pos):        
-          min_pos=it_string.find(str(num))
-    if(min_pos<9999):
-      return False,min_pos
+    for ind,char in enumerate(it_string):
+      '''Determine if there are any numbers in it_string, then find the first
+       occurence of a number.'''
+      if(char in self.n_chars):
+        if(ind<min_pos):        
+          min_pos=ind
 
-    '''Determine if there are any letters in it_string'''
-    for let in self.a_chars:
-      if(let in it_string):
+      '''Determine if there are any letters in it_string'''
+      if(char in self.a_chars):
         return True,None
 
     '''Return None for both if neither letters or numbers are found'''
-    return None,None 
+    if(min_pos<9999):
+      return False,min_pos
+    else:
+      return None,None 
 
   def dash_case(self,it_string):
     new_it=''
