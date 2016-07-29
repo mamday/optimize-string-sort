@@ -71,23 +71,18 @@ class AlphanumericSortableString(object):
     return self.cur_string
 
   def is_alpha(self,it_string):
-    min_pos = 9999 
     for ind,char in enumerate(it_string):
       '''Determine if there are any numbers in it_string, then find the first
        occurence of a number.'''
       if(char in self.n_chars):
-        if(ind<min_pos):        
-          min_pos=ind
+        return False,ind
 
       '''Determine if there are any letters in it_string'''
       if(char in self.a_chars):
         return True,None
 
     '''Return None for both if neither letters or numbers are found'''
-    if(min_pos<9999):
-      return False,min_pos
-    else:
-      return None,None 
+    return None,None 
 
   def dash_case(self,it_string):
     new_it=''
